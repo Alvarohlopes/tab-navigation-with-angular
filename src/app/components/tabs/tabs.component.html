@@ -1,0 +1,22 @@
+<div class="tabs">
+    <div class="nav-tabs">
+        <ul>
+            <li [ngClass]="{'active': tab.active, 'nav-item': true}" *ngFor="let tab of tabs, let i = index"
+                (click)="setTab(i)">
+                {{ tab.route.title }}
+                <button *ngIf="tabs.length !== 1" (click)="closeTab(tab)">
+                    <img src="../../../assets/images/close.svg" [alt]="'close page' +  tab.route.title">
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <ng-container *ngFor="let tab of tabs">
+            <div [ngClass]="{'show-tab': tab.active, 'tab-inner-content': true}">
+                <ng-container *ngComponentOutlet="tab.component;"></ng-container>
+            </div>
+        </ng-container>
+    </div>
+
+</div>

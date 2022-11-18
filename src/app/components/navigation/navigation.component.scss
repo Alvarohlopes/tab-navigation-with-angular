@@ -1,0 +1,26 @@
+nav {
+    width: 260px;
+    height: calc(100vh - 80px);
+    border-right: 1px solid #cecece;
+
+    ul {
+        li {
+            display: flex;
+            border-bottom: 1px solid #cecece;
+
+            a {
+                padding: 10px 20px;
+                width: 100%;
+                color: #666;
+                font-weight: 600;
+                line-height: 30px;
+                transition: all 0.6s;
+
+                &:is(.link-active, :hover) {
+                    background: var(--primary-color);
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
