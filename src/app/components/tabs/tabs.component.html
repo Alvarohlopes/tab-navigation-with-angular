@@ -2,7 +2,7 @@
     <div class="nav-tabs">
         <ul>
             <li [ngClass]="{'active': tab.active, 'nav-item': true}" *ngFor="let tab of tabs, let i = index"
-                (click)="setTab(i)">
+                (click)="setTab(tab)" [id]="tab.key">
                 {{ tab.route.title }}
                 <button *ngIf="tabs.length !== 1" (click)="closeTab(tab)">
                     <img src="../../../assets/images/close.svg" [alt]="'close page' +  tab.route.title">

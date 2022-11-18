@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationModule } from './components/navigation/navigation.module';
 import { TabsModule } from './components/tabs/tabs.module';
-import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { PagesModule } from './pages/pages.module';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    PagesModule,
     NavigationModule,
     TabsModule
   ],

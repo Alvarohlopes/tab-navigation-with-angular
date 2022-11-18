@@ -2,6 +2,15 @@ nav {
     width: 260px;
     height: calc(100vh - 80px);
     border-right: 1px solid #cecece;
+    overflow: hidden;
+
+    &:hover {
+        overflow-y: auto;
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
 
     ul {
         li {

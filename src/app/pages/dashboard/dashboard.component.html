@@ -1,2 +1,23 @@
-<p>dashboard works!</p>
-<input type="text" (ngModel)="teste">
+<h2>Dashboard works!</h2>
+
+<form (submit)="sendForm($event)"> 
+    <label for="text">Enter a text</label><br>
+    <input id="text" type="text" (ngModel)="teste">
+    <button type="submit">Send</button>
+</form>
+
+<div>
+    <p>
+        In this study, I created five test routes, some with lazy load and another without lazy load, where the
+        component captures the browsing history and creates quick access tabs.<br><br>
+
+        The components are open, but inactive, because I'm using ChangeDetectionStrategy.OnPush to disable frequent
+        change detection.<br><br>
+
+        This is just a study version, very soon I will include API'S requests for performance tests.<br><br>
+
+        Hope it's helpful.<br><br>
+
+        I am available for questions and improvements.<br><br>
+    </p>
+</div>

@@ -23,5 +23,6 @@
     .content{
         padding-left: 10px;
         width: 100%;
+        max-width: calc(100% - 270px);
     }
 }

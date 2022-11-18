@@ -1,9 +1,9 @@
 <nav class="slide-in-left">
     <ul>
-        <li><a [routerLink]="['dashboard']" routerLinkActive="link-active">Dashboard</a></li>
-        <li><a [routerLink]="['first-page']" routerLinkActive="link-active">First Page</a></li>
-        <li><a [routerLink]="['second-page']" routerLinkActive="link-active">Second Page</a></li>
+        <li><a (click)="onClick('DashboardComponent')" [routerLink]="['pages/dashboard']" routerLinkActive="link-active">Dashboard</a></li>
+        <li><a [routerLink]="['pages/first-page']" routerLinkActive="link-active">First Page</a></li>
+        <li><a [routerLink]="['pages/second-page']" routerLinkActive="link-active">Second Page</a></li>
         <li><a [routerLink]="['third-page']" routerLinkActive="link-active">Third Page</a></li>
-        <li><a [routerLink]="['fourth-page']" routerLinkActive="link-active">Fourth Page</a></li>
+        <li><a (click)="onClick('ThirdPageComponent')" [routerLink]="['pages/fourth-page']" routerLinkActive="link-active">Fourth Page</a></li>
     </ul>
 </nav>

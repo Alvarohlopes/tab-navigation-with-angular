@@ -15,4 +15,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  sendForm(e: any): void {
+    e.preventDefault();
+    alert(`submitted value: ${e.target[0].value}!`)
+  }
+
 }

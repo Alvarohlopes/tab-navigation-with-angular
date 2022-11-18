@@ -24,16 +24,18 @@ export class TabsComponent implements OnInit {
   constructor(
     private router: Router,
     private cd: ChangeDetectorRef
-  ) { }
+  ) { 
+    router.events
+    .pipe(untilDestroyed(this))
+    .subscribe(route => {
+      if (route instanceof RoutesRecognized) {
+        this.createTabByTypeRoute(route);
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.router.events
-      .pipe(untilDestroyed(this))
-      .subscribe(route => {
-        if (route instanceof RoutesRecognized) {
-          this.createTabs(route);
-        }
-      });
+   
   }
 
   closeTab(tab: Tab): void {
@@ -47,32 +49,62 @@ export class TabsComponent implements OnInit {
     }
   }
 
-  setTab(index: number): void {
-    this.deactivateTabs();
-    this.tabs[index].active = true;
+  setTab(tab: Tab): void { 
+    this.router.navigate(['/' + tab.route.path]);
   }
 
-  createTabs(route: RoutesRecognized): void {
-    const comp: any = route.state.root.firstChild?.component;
-
+  createTabByTypeRoute(route: RoutesRecognized): void {
     this.deactivateTabs();
+    
+    // This method may vary according to the number of route levels
+    
+    // Component Route - first layer of routes - default
+    const componentNoLazy: any = route.state.root.firstChild?.component;
+    const routeNoLazy: any = route.state.root.firstChild?.routeConfig;
+    
+    // Lazy Load Route - first and second layer of routes - third page
+    const componentUsingLazy: any = route.state.root.firstChild?.firstChild?.component;
+    const routeUsingLazyNoPath: any = route.state.root.firstChild?.firstChild?.routeConfig;
+    const routeUsingLazy: any = {
+      ...routeUsingLazyNoPath,
+      path: route.state.url
+    }
 
-    if (this.tabs.find((tab: Tab) => tab.name == comp['name']) == null) {
+    // Lazy Load Route - third layer of routes - first page
+    const componentUsingLazyThirdLayer: any = route.state.root.firstChild?.firstChild?.firstChild?.component;
+    const routeUsingLazyNoPathThirdLayer: any = route.state.root.firstChild?.firstChild?.firstChild?.routeConfig;
+    const routeUsingLazyThirdLayer: any = {
+      ...routeUsingLazyNoPathThirdLayer,
+      path: route.state.url
+    }
+    
+    if (componentNoLazy) {
+      this.createTab(componentNoLazy, routeNoLazy);
+    } else if(componentUsingLazy ){
+      this.createTab(componentUsingLazy, routeUsingLazy);
+    } else if (componentUsingLazyThirdLayer) {
+      this.createTab(componentUsingLazyThirdLayer, routeUsingLazyThirdLayer);
+    }
+
+    this.cd.markForCheck();
+  }
+
+  createTab(component: any, route: any): void {       
+    if (this.tabs.find((tab: Tab) => tab.name == component['name']) == null) {
       this.tabs.push({
-        name: comp['name'],
-        component: comp,
-        key: comp['name'],
+        name: component['name'],
+        component: component,
+        key: component['name'],
         active: true,
-        route: route.state.root.firstChild?.routeConfig
+        route: route
       });
     } else {
-      const tabToActivate = this.tabs.find((tab: Tab) => tab.name == comp['name']);
+      const tabToActivate = this.tabs.find((tab: Tab) => tab.name == component['name']);
       if (tabToActivate) {
         tabToActivate.active = true;
       }
     }
-
-    this.cd.markForCheck();
+    
   }
 
   deactivateTabs(): void {

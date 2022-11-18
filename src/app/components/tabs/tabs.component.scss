@@ -8,10 +8,16 @@
     .nav-tabs {
         width: 100%;
         background: #e7e7e7;
-        // border: 1px solid #cecece;
         overflow: hidden;
-        overflow-x: auto;
         height: 56px;
+
+        &:hover {
+            overflow-x: auto;
+        }
+
+        &::-webkit-scrollbar {
+            height: 6px;
+        }
 
         ul {
             display: flex;
@@ -33,6 +39,10 @@
                 transition: 0.3s;
                 height: 54px;
                 border-radius: 4px 4px 0 0;
+
+                &:last-child{
+                    border-right: 1px solid #cecece;
+                }
 
                 &:is(.active, :hover) {
                     background: #fff;
@@ -63,6 +73,7 @@
         border-left: 1px solid #cecece;
 
         .tab-inner-content {
+            height: calc(100vh - 177px);
             padding: 20px;
             position: absolute;
             left: 0;
@@ -70,12 +81,20 @@
             opacity: 0;
             overflow: hidden;
             width: 0;
-            transition: 0.3s;
+            transition: 0.1s;
+            background: #fff;
             
             &.show-tab {
                 opacity: 1;
-                overflow: auto;
                 width: calc(100% - 40px);
+
+                &:hover {
+                    overflow-y: auto;
+                }
+        
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
             }
         }
     }
